@@ -1,0 +1,173 @@
+:root {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: #e2e8f0;
+
+  /* Theme colors - Premium Blueprint Palette */
+  --bg-color: #0b1426;
+  --grid-color: rgba(66, 135, 245, 0.08);
+  --grid-accent: rgba(66, 135, 245, 0.15);
+  
+  --primary-color: #38bdf8; /* Neon Cyan */
+  --primary-glow: rgba(56, 189, 248, 0.35);
+  
+  --success-color: #4ade80; /* Hand-drawn Green */
+  --success-glow: rgba(74, 222, 128, 0.3);
+  
+  --warning-color: #fbbf24; /* Hand-drawn Yellow */
+  --warning-glow: rgba(251, 191, 36, 0.3);
+  
+  --error-color: #f87171; /* Hand-drawn Red */
+  --error-glow: rgba(248, 113, 113, 0.3);
+  
+  --card-bg: rgba(15, 23, 42, 0.65);
+  --card-border: #38bdf8;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  background-image: 
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(var(--grid-accent) 2px, transparent 2px),
+    linear-gradient(90deg, var(--grid-accent) 2px, transparent 2px);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  background-position: center center;
+  overflow-x: hidden;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, .sketch-font {
+  font-family: 'Architects Daughter', cursive;
+  font-weight: normal;
+}
+
+/* Custom Scrollbar for Blueprint feel */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+  border-left: 1px dashed var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.4);
+}
+
+/* Wired elements styling override */
+wired-card {
+  --wired-card-background: var(--card-bg);
+  --wired-card-border-color: var(--primary-color);
+  display: block;
+}
+
+wired-button {
+  --wired-button-background: rgba(56, 189, 248, 0.1);
+  --wired-button-border-color: var(--primary-color);
+  color: var(--text-primary);
+  font-family: 'Architects Daughter', cursive;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+wired-button:hover {
+  --wired-button-background: rgba(56, 189, 248, 0.25);
+  transform: translateY(-1px);
+}
+
+wired-input {
+  --wired-input-border-color: var(--primary-color);
+  --wired-input-placeholder-color: var(--text-secondary);
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  width: 100%;
+}
+
+wired-progress {
+  --wired-progress-color: var(--primary-color);
+  --wired-progress-border-color: var(--primary-color);
+  width: 100%;
+  height: 14px;
+  display: block;
+}
+
+wired-dialog {
+  --wired-dialog-background: var(--bg-color);
+  --wired-dialog-border-color: var(--primary-color);
+}
+
+/* Custom glowing effects */
+.glow-primary {
+  box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.glow-success {
+  box-shadow: 0 0 15px var(--success-glow);
+}
+
+.glow-warning {
+  box-shadow: 0 0 15px var(--warning-glow);
+}
+
+.glow-error {
+  box-shadow: 0 0 15px var(--error-glow);
+}
+
+/* Layout Classes */
+.dashboard-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 100vh;
+}
+
+/* Simple keyframe animation for list loading */
+@keyframes drawIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-draw {
+  animation: drawIn 0.4s ease forwards;
+}
+
+/* Loading spinner */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+}

@@ -1,0 +1,17 @@
+{
+  "name": "new-transmission-tool",
+  "version": "1.0.0",
+  "description": "Transmission Dashboard with Hono, React, and Wired Elements",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "dev:backend": "cross-env PORT=3300 npm run dev --prefix backend",
+    "dev:frontend": "cross-env BACKEND_PORT=3300 npm run dev --prefix frontend",
+    "dev": "cross-env PORT=3300 BACKEND_PORT=3300 concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:alt": "cross-env PORT=3301 BACKEND_PORT=3301 concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"  ",
+    "build:all": "npm run build --prefix frontend && npm run build --prefix backend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cross-env": "^10.1.0"
+  }
+}

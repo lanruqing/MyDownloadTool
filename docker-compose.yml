@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: transmission-backend
+    environment:
+      - PORT=3300
+      - TRANSMISSION_URL=${TRANSMISSION_URL:-http://192.168.50.109:49092/transmission/rpc}
+      - TRANSMISSION_USERNAME=${TRANSMISSION_USERNAME:-qnap}
+      - TRANSMISSION_PASSWORD=${TRANSMISSION_PASSWORD:-qnap}
+    restart: unless-stopped
+    networks:
+      - transmission-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: transmission-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - transmission-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  transmission-network:
+    driver: bridge
