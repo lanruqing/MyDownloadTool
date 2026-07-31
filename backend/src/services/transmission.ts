@@ -8,10 +8,23 @@ import type {
   SessionStatsResponse,
   FreeSpaceResponse,
 } from '../types/index.js';
-import type { TransmissionRepository } from '../repositories/transmissionRepository.js';
+import type { AppConfig } from '../config/index.js';
+import { TransmissionRepositoryImpl, type TransmissionRepository } from '../repositories/transmissionRepository.js';
 
 export class TransmissionService {
-  constructor(private readonly repository: TransmissionRepository) {}
+  private readonly repository: TransmissionRepository;
+
+  constructor(repositoryOrConfig: TransmissionRepository | AppConfig) {
+    if ('callRPC' in repositoryOrConfig) {
+      this.repository = repositoryOrConfig;
+    } else {
+      this.repository = new TransmissionRepositoryImpl(repositoryOrConfig);
+    }
+  }
+
+  async callRPC<T = unknown>(method: string, args: Record<string, unknown> = {}): Promise<T> {
+    return this.repository.callRPC<T>(method, args);
+  }
 
   /** 获取种子列表 */
   async getTorrents(): Promise<TorrentGetResponse> {

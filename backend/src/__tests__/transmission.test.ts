@@ -1,6 +1,7 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { TransmissionService } from '../services/transmission.js';
 import { loadConfig } from '../config/index.js';
+import { TransmissionRepositoryImpl } from '../repositories/transmissionRepository.js';
 
 const config = loadConfig();
 
@@ -9,7 +10,7 @@ describe('TransmissionService', () => {
   let fetchMock: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    service = new TransmissionService(config);
+    service = new TransmissionService(new TransmissionRepositoryImpl(config));
     fetchMock = vi.spyOn(globalThis as any, 'fetch');
   });
 
@@ -19,7 +20,7 @@ describe('TransmissionService', () => {
 
   it('should attach authorization header when credentials are set', async () => {
     const authConfig = { ...config, transmissionUsername: 'user', transmissionPassword: 'pass' };
-    const authService = new TransmissionService(authConfig);
+    const authService = new TransmissionService(new TransmissionRepositoryImpl(authConfig));
 
     fetchMock.mockResolvedValueOnce({
       ok: true,
